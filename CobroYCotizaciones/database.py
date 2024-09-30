@@ -7,8 +7,8 @@ def conectar():
             dbname="ProyectoServidor",
             user="postgres",
             password="211214",
-            host="localhost",  # o la IP del servidor de PostgreSQL
-            port="5432"  # El puerto por defecto de PostgreSQL
+            host="localhost", 
+            port="5432"
         )
         return connection
     except Exception as error:
