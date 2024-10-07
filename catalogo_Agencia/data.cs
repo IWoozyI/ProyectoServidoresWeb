@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Npgsql; 
+using Npgsql;
 
-namespace data
+namespace Data
 {
     public interface IPaquete
     {
