@@ -1,80 +1,29 @@
-from flask import jsonify
-from database import conectar, cerrar_conexion
+from sqlalchemy.orm import Session
+from models import Vuelo, Reserva
 
-def buscar_vuelo(origen, destino, fecha):
-    connection = conectar()
-    if not connection:
-        return {"error": "No se pudo conectar a la base de datos"}
+def buscar_vuelo(origen: str, destino: str, fecha: str, db: Session):
+    vuelos = db.query(Vuelo).filter(Vuelo.origen == origen, Vuelo.destino == destino, Vuelo.fecha == fecha).all()
+    return vuelos
 
-    try:
-        cursor = connection.cursor()
-        query = "SELECT * FROM vuelos WHERE origen = %s AND destino = %s AND fecha = %s;"
-        cursor.execute(query, (origen, destino, fecha))
-        vuelos = cursor.fetchall()
+def reservar_vuelo(vuelo_id: int, cliente: str, db: Session):
+    vuelo = db.query(Vuelo).filter(Vuelo.vuelo_id == vuelo_id).first()
+    if not vuelo:
+        return {"error": "Vuelo no encontrado"}, 404
+    nueva_reserva = Reserva(cliente=cliente, vuelo_id=vuelo_id)
+    db.add(nueva_reserva)
+    db.commit()
+    return {"message": "Reserva realizada con éxito", "reserva_id": nueva_reserva.id}
 
-        if not vuelos:
-            return {"message": "No se encontraron vuelos"}
+def eliminar_reserva(reserva_id: int, db: Session):
+    reserva = db.query(Reserva).filter(Reserva.id == reserva_id).first()
+    if not reserva:
+        return {"error": "Reserva no encontrada"}, 404
+    db.delete(reserva)
+    db.commit()
+    return {"message": "Reserva eliminada con éxito"}
 
-        return {"vuelos": [{"vuelo_id": vuelo[0], "origen": vuelo[1], "destino": vuelo[2], "fecha": vuelo[3], "precio": vuelo[4]} for vuelo in vuelos]}
-
-    except Exception as error:
-        return {"error": str(error)}
-
-    finally:
-        cerrar_conexion(connection)
-
-def agregar_vuelo(origen, destino, fecha, precio):
-    connection = conectar()
-    if not connection:
-        return {"error": "No se pudo conectar a la base de datos"}
-
-    try:
-        cursor = connection.cursor()
-        query = """
-        INSERT INTO vuelos (origen, destino, fecha, precio) 
-        VALUES (%s, %s, %s, %s) 
-        RETURNING vuelo_id;
-        """
-        cursor.execute(query, (origen, destino, fecha, precio))
-        vuelo_id = cursor.fetchone()[0]
-        connection.commit()
-        cursor.close()
-        return {"message": "Vuelo agregado", "vuelo_id": vuelo_id}
-
-    except Exception as error:
-        connection.rollback()
-        return {"error": str(error)}
-
-    finally:
-        cerrar_conexion(connection)
-
-def reservar_vuelo(vuelo_id, cliente):
-    connection = conectar()
-    if not connection:
-        return {"error": "No se pudo conectar a la base de datos"}
-
-    try:
-        cursor = connection.cursor()
-        cursor.execute("SELECT * FROM vuelos WHERE vuelo_id = %s;", (vuelo_id,))
-        vuelo = cursor.fetchone()
-
-        if not vuelo:
-            return {"message": "Vuelo no encontrado"}
-
-        query = """
-        INSERT INTO reservas (vuelo_id, cliente) 
-        VALUES (%s, %s) 
-        RETURNING id;
-        """
-        cursor.execute(query, (vuelo_id, cliente))
-        reserva_id = cursor.fetchone()[0]
-        connection.commit()
-        cursor.close()
-        return {"message": "Vuelo reservado", "reserva_id": reserva_id}
-
-    except Exception as error:
-        connection.rollback()
-        return {"error": str(error)}
-
-    finally:
-        cerrar_conexion(connection)
+def agregar_vuelo(origen: str, destino: str, fecha: str, precio: float, db: Session):
+    nuevo_vuelo = Vuelo(origen=origen, destino=destino, fecha=fecha, precio=precio)
+    db.add(nuevo_vuelo)
+    db.commit()
+    return {"message": "Vuelo agregado con éxito", "vuelo_id": nuevo_vuelo.vuelo_id}

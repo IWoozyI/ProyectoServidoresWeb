@@ -1,20 +1,20 @@
-import psycopg2
-from psycopg2 import sql
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-def conectar():
+DATABASE_URL = "postgresql://postgres:211214@localhost:5432/ProyectoServidor"
+
+engine = create_engine(DATABASE_URL)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
     try:
-        connection = psycopg2.connect(
-            dbname="ProyectoServidor",
-            user="postgres",
-            password="211214",
-            host="localhost", 
-            port="5432"
-        )
-        return connection
-    except Exception as error:
-        print(f"Error al conectar a la base de datos: {error}")
-        return None
+        yield db
+    finally:
+        db.close() 
 
-def cerrar_conexion(connection):
-    if connection:
-        connection.close()
+Base.metadata.create_all(bind=engine)
