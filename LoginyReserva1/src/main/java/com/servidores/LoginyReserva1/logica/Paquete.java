@@ -8,6 +8,7 @@ package com.servidores.LoginyReserva1.logica;
  *
  * @author Woozy
  */
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class Paquete {
     private double precio;
 
     @OneToMany(mappedBy = "paquete")
+    @JsonIgnore
     private List<Reserva> reservas;
 
     // Getters y Setters

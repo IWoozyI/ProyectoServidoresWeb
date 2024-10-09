@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -28,7 +29,6 @@ public class UsuarioController {
     // Crear un nuevo usuario
     @PostMapping("/crear")
     public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
-        // Aquí podrías incluir lógica de validación o encriptación de la contraseña
         Usuario nuevoUsuario = usuarioRepository.save(usuario);
         return ResponseEntity.ok(nuevoUsuario);
     }
@@ -62,6 +62,18 @@ public class UsuarioController {
             return ResponseEntity.ok(usuario.get());
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+    
+    //Borrar un usuario
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
+        if (usuarioOpt.isPresent()) {
+            usuarioRepository.delete(usuarioOpt.get());
+            return ResponseEntity.ok("Usuario eliminado exitosamente");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         }
     }
 }

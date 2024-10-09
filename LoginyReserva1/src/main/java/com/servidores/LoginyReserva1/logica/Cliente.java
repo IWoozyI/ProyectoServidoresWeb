@@ -4,6 +4,7 @@
  */
 package com.servidores.LoginyReserva1.logica;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,8 +23,11 @@ public class Cliente {
     private String email;
     
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
     private List<Reserva> reservas;
 
+    
+    
     // Getters y Setters
     public Long getId() {
         return id;

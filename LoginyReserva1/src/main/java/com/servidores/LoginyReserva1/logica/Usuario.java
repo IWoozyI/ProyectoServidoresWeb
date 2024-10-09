@@ -9,6 +9,7 @@ package com.servidores.LoginyReserva1.logica;
  * @author Woozy
  */
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,10 +32,12 @@ public class Usuario {
         joinColumns = @JoinColumn(name = "usuario_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @JsonIgnoreProperties("usuarios") // Evita la recursión infinita al serializar
     private Set<Role> roles = new HashSet<>();
 
     // Constructor sin argumentos
-    public Usuario() {}
+    public Usuario() {
+    }
 
     // Constructor con parámetros
     public Usuario(String nombre, String clave, String estado) {
