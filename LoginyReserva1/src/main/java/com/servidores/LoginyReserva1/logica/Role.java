@@ -9,6 +9,7 @@ package com.servidores.LoginyReserva1.logica;
  * @author Woozy
  */
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ public class Role {
     private String nombre;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnoreProperties("roles") // Evita la recursión infinita al serializar
     private Set<Usuario> usuarios = new HashSet<>();
 
     // Constructor sin argumentos
