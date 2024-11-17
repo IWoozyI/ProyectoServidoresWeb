@@ -1,0 +1,160 @@
+[
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.ActividadController",
+    "Method": "CrearActividad",
+    "RelativePath": "api/Actividad",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "actividad",
+        "Type": "CatalogoTurismoF.Models.Actividad",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.ActividadController",
+    "Method": "ObtenerActividades",
+    "RelativePath": "api/Actividad",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.ActividadController",
+    "Method": "ActualizarActividad",
+    "RelativePath": "api/Actividad/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "actividad",
+        "Type": "CatalogoTurismoF.Models.Actividad",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.ActividadController",
+    "Method": "EliminarActividad",
+    "RelativePath": "api/Actividad/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.ActividadController",
+    "Method": "BuscarActividadPorNombre",
+    "RelativePath": "api/Actividad/{nombre}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nombre",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.PaqueteController",
+    "Method": "CrearPaquete",
+    "RelativePath": "api/Paquete",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paquete",
+        "Type": "CatalogoTurismoF.Models.Paquete",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.PaqueteController",
+    "Method": "ObtenerPaquetes",
+    "RelativePath": "api/Paquete",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.PaqueteController",
+    "Method": "ActualizarPaquete",
+    "RelativePath": "api/Paquete/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "paquete",
+        "Type": "CatalogoTurismoF.Models.Paquete",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.PaqueteController",
+    "Method": "EliminarPaquete",
+    "RelativePath": "api/Paquete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CatalogoTurismoF.Controllers.PaqueteController",
+    "Method": "BuscarPaquetePorNombre",
+    "RelativePath": "api/Paquete/{nombre}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nombre",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

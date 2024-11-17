@@ -1,0 +1,24 @@
+type Query {
+    getClientes: [Cliente]
+    getClienteById(id: ID!): Cliente
+}
+
+type Mutation {
+    createCliente(nombre: String!, email: String!): Cliente
+    updateCliente(id: ID!, nombre: String, email: String): Cliente
+    deleteCliente(id: ID!): String
+}
+
+type Cliente {
+    id: ID!
+    nombre: String!
+    email: String!
+    reservas: [Reserva]
+}
+
+type Reserva {
+    id: ID!
+    fecha: String!
+    cliente: Cliente
+}
+

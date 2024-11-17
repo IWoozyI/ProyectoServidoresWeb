@@ -62,13 +62,51 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+<!--		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+-->
+                <!-- Dependencia de iText para generación de PDFs -->
+                <dependency>
+                    <groupId>com.itextpdf</groupId>
+                    <artifactId>itext7-core</artifactId>
+                    <version>8.0.5</version>
+                    <type>pom.sha512</type>
+                </dependency>
 
+                <!-- Dependencia para GraphQL Java -->
+                <dependency>
+                    <groupId>com.graphql-java</groupId>
+                    <artifactId>graphql-java</artifactId>
+                    <version>17.0</version>  <!-- Usa la versión 17 o superior -->
+                </dependency>
+
+                <!-- Dependencia para graphql-java-kickstart que maneja los servlets y configura GraphQL en Spring Boot -->
+                <dependency>
+                    <groupId>com.graphql-java</groupId>
+                    <artifactId>graphql-java-servlet</artifactId>
+                    <version>6.1.2</version>  <!-- Usa una versión compatible -->
+                </dependency>
+
+                <!-- Dependencia para la interfaz de usuario GraphiQL -->
+                <!-- https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphql-java-kickstart -->
+                <dependency>
+                    <groupId>com.graphql-java-kickstart</groupId>
+                    <artifactId>graphql-java-kickstart</artifactId>
+                    <version>12.0.0</version>
+                </dependency>
+               <dependency>
+                    <groupId>com.graphql-java</groupId>
+                    <artifactId>graphql-spring-boot-starter</artifactId>
+                    <version>5.0.2</version>
+                </dependency>
+                <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-graphql</artifactId>
+		</dependency>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
