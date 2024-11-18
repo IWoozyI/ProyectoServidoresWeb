@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model IVehiculo {
+    ID  Int @id
+    Descripcion String
+    Placa String
+    Color String
+    iparquear IParquear[]
+}
+
+model IEspaciodeParqueo {
+    ID Int @id
+    Descripcion String
+    iparquear IParquear[]
+}
+
+model IParquear {
+  ID       Int      @id
+  ID_Vehiculo Int
+  vehiculo    IVehiculo   @relation(fields: [ID_Vehiculo], references: [ID])  
+  ID_EspaciodeParqueo Int
+  parqueo   IEspaciodeParqueo @relation(fields: [ID_EspaciodeParqueo], references: [ID])  
+  FechayHoradeEntrada String
+  FechayHoradeSalida String
+}
