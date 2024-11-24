@@ -1,0 +1,113 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Cliente {
+  id: ID!
+  nombre: String!
+  email: String!
+}
+
+type Paquete {
+  id: ID!
+  descripcion: String!
+  precio: String!
+}
+
+type Reserva {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Rol {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Usuario {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  clientes: [Cliente!]!
+  cliente(id: String!): Cliente!
+  paquetes: [Paquete!]!
+  paquete(id: String!): Paquete!
+  reserva(id: Int!): Reserva!
+  rol(id: Int!): Rol!
+  usuario(id: Int!): Usuario!
+}
+
+type Mutation {
+  createCliente(createClienteInput: CreateClienteInput!): Cliente!
+  updateCliente(updateClienteInput: UpdateClienteInput!): Cliente!
+  removeCliente(id: String!): Cliente!
+  createPaquete(createPaqueteInput: CreatePaqueteInput!): Paquete!
+  updatePaquete(updatePaqueteInput: UpdatePaqueteInput!): Paquete!
+  removePaquete(id: String!): Paquete!
+  createReserva(createReservaInput: CreateReservaInput!): Reserva!
+  updateReserva(updateReservaInput: UpdateReservaInput!): Reserva!
+  removeReserva(id: Int!): Reserva!
+  createRol(createRolInput: CreateRolInput!): Rol!
+  updateRol(updateRolInput: UpdateRolInput!): Rol!
+  removeRol(id: Int!): Rol!
+  createUsuario(createUsuarioInput: CreateUsuarioInput!): Usuario!
+  updateUsuario(updateUsuarioInput: UpdateUsuarioInput!): Usuario!
+  removeUsuario(id: Int!): Usuario!
+}
+
+input CreateClienteInput {
+  nombre: String!
+  email: String!
+}
+
+input UpdateClienteInput {
+  nombre: String
+  email: String
+  id: ID!
+}
+
+input CreatePaqueteInput {
+  descripcion: String!
+  precio: String!
+}
+
+input UpdatePaqueteInput {
+  descripcion: String
+  precio: String
+  id: ID!
+}
+
+input CreateReservaInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateReservaInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateRolInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateRolInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateUsuarioInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUsuarioInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
