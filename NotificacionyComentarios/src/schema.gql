@@ -1,0 +1,78 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Comentario {
+  id: ID!
+  contenido: String!
+  fechayhora: String!
+}
+
+type Usuario {
+  id: ID!
+  nombre: String!
+  email: String!
+}
+
+type Publicacion {
+  id: ID!
+  titulo: String!
+  contenido: String!
+  fechapublicacion: String!
+}
+
+type Query {
+  comentarios: [Comentario!]!
+  comentario(id: String!): Comentario!
+  usuarios: [Usuario!]!
+  usuario(id: String!): Usuario!
+  publicaciones: [Publicacion!]!
+  publicacion(id: String!): Publicacion!
+}
+
+type Mutation {
+  createComentario(createComentarioInput: CreateComentarioInput!): Comentario!
+  updateComentario(updateComentarioInput: UpdateComentarioInput!): Comentario!
+  removeComentario(id: String!): Comentario!
+  createUsuario(createUsuarioInput: CreateUsuarioInput!): Usuario!
+  updateUsuario(updateUsuarioInput: UpdateUsuarioInput!): Usuario!
+  removeUsuario(id: String!): Usuario!
+  createPublicacion(createPublicacionInput: CreatePublicacionInput!): Publicacion!
+  updatePublicacion(updatePublicacionInput: UpdatePublicacionInput!): Publicacion!
+  removePublicacion(id: String!): Publicacion!
+}
+
+input CreateComentarioInput {
+  contenido: String!
+  fechayhora: String!
+}
+
+input UpdateComentarioInput {
+  contenido: String
+  fechayhora: String
+  id: ID!
+}
+
+input CreateUsuarioInput {
+  nombre: String!
+  email: String!
+}
+
+input UpdateUsuarioInput {
+  nombre: String
+  email: String
+  id: ID!
+}
+
+input CreatePublicacionInput {
+  titulo: String!
+  contenido: String!
+  fechapublicacion: String!
+}
+
+input UpdatePublicacionInput {
+  titulo: String
+  contenido: String
+  fechapublicacion: String
+  id: ID!
+}

@@ -1,28 +1,38 @@
-// import { Module } from '@nestjs/common';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
-
-// @Module({
-//   imports: [],
-//   controllers: [AppController],
-//   providers: [AppService],
-// })
-// export class AppModule {}
-
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { AppResolver } from './resolver/app.resolver';  // Resolver donde definirás tus consultas y mutaciones
+import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { IvehiculoModule } from './ivehiculo/ivehiculo.module';
+import { ComentarioModule } from './comentario/comentario.module';
+import { UsuarioModule } from './usuario/usuario.module';
+import { PublicacionModule } from './publicacion/publicacion.module';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { join } from 'path';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot({
-      autoSchemaFile: true,  // Esto genera automáticamente el esquema GraphQL a partir de los decoradores
-      playground: true,      // Habilita GraphQL Playground (interfaz gráfica para probar consultas)
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type:'postgres',
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
+      autoLoadEntities: true,
+      synchronize: true,
+      ssl: process.env.DB_SSL ==="require",
     }),
-    IvehiculoModule,
-  ],
-  providers: [AppService, AppResolver],  // Asegúrate de que tu resolver esté incluido aquí
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      playground: false,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+    }),
+    ComentarioModule, UsuarioModule, PublicacionModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
