@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ComentarioModule } from './comentario/comentario.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { PublicacionModule } from './publicacion/publicacion.module';
@@ -29,10 +27,11 @@ import { join } from 'path';
       driver: ApolloDriver,
       playground: false,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      subscriptions: {'graphql-ws': true,},
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     ComentarioModule, UsuarioModule, PublicacionModule],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
