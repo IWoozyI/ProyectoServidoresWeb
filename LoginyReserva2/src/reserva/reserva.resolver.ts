@@ -3,10 +3,14 @@ import { ReservaService } from './reserva.service';
 import { Reserva } from './entities/reserva.entity';
 import { CreateReservaInput } from './dto/create-reserva.input';
 import { UpdateReservaInput } from './dto/update-reserva.input';
+import { ReservaGateway } from './reserva.gateway';
 
 @Resolver(() => Reserva)
 export class ReservaResolver {
-  constructor(private readonly reservaService: ReservaService) {}
+  constructor(
+    private readonly reservaService: ReservaService,
+    private readonly reservaGateway: ReservaGateway
+  ) {}
 
   @Mutation(() => Reserva)
   createReserva(@Args('createReservaInput') createReservaInput: CreateReservaInput): Promise<Reserva> {

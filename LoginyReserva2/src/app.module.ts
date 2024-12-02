@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ClienteModule } from './cliente/cliente.module';
 import { PaqueteModule } from './paquete/paquete.module';
 import { ReservaModule } from './reserva/reserva.module';
@@ -34,7 +32,7 @@ import { join } from 'path';
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     ClienteModule, PaqueteModule, ReservaModule, RolModule, UsuarioModule],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
