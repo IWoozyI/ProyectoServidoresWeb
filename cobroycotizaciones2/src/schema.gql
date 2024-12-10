@@ -1,0 +1,98 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Pago {
+  id: ID!
+  descripcion: String!
+  monto: Float!
+  fecha: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Cotizacion {
+  id: ID!
+  cliente: String!
+  descripcion: String!
+  monto: Float!
+  fecha: DateTime!
+}
+
+type Reserva {
+  id: ID!
+  cliente: String!
+  descripcion: String!
+  fechaReserva: DateTime!
+  monto: Float!
+  estado: String!
+}
+
+type Query {
+  pagos: [Pago!]!
+  pago(id: String!): Pago!
+  cotizaciones: [Cotizacion!]!
+  cotizacion(id: String!): Cotizacion!
+  reservas: [Reserva!]!
+  reserva(id: String!): Reserva!
+}
+
+type Mutation {
+  createPago(createPagoInput: CreatePagoInput!): Pago!
+  updatePago(updatePagoInput: UpdatePagoInput!): Pago!
+  removePago(id: String!): Pago!
+  createCotizacion(createCotizacionInput: CreateCotizacionInput!): Cotizacion!
+  updateCotizacion(updateCotizacionInput: UpdateCotizacionInput!): Cotizacion!
+  removeCotizacion(id: String!): Cotizacion!
+  createReserva(createReservaInput: CreateReservaInput!): Reserva!
+  updateReserva(updateReservaInput: UpdateReservaInput!): Reserva!
+  removeReserva(id: String!): Reserva!
+}
+
+input CreatePagoInput {
+  descripcion: String!
+  monto: Float!
+  fecha: DateTime!
+}
+
+input UpdatePagoInput {
+  descripcion: String
+  monto: Float
+  fecha: DateTime
+  id: String!
+}
+
+input CreateCotizacionInput {
+  cliente: String!
+  descripcion: String!
+  monto: Float!
+  fecha: DateTime!
+}
+
+input UpdateCotizacionInput {
+  cliente: String
+  descripcion: String
+  monto: Float
+  fecha: DateTime
+  id: String!
+}
+
+input CreateReservaInput {
+  cliente: String!
+  descripcion: String!
+  fechaReserva: DateTime!
+  monto: Float!
+  estado: String!
+}
+
+input UpdateReservaInput {
+  cliente: String
+  descripcion: String
+  fechaReserva: DateTime
+  monto: Float
+  estado: String
+  id: String!
+}
