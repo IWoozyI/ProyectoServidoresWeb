@@ -19,11 +19,16 @@ export class ReservaService {
   }
 
   async findAll(): Promise<Reserva[]> {
-    return await this.reservaRepository.find();
+    return await this.reservaRepository.find({
+      relations: ['cliente', 'paquete'],
+    });
   }
 
   async findOne(id: string): Promise<Reserva> {
-    return await this.reservaRepository.findOneBy({id});
+    return await this.reservaRepository.findOne({
+      where:{id},
+      relations: ['cliente', 'paquete'],
+    });
   }
 
   async update(id: string, updateReservaInput: UpdateReservaInput): Promise<Reserva> {
@@ -35,7 +40,7 @@ export class ReservaService {
   }
 
   async remove(id: string): Promise<Reserva> {
-    const remover= await this.reservaRepository.findOne({where:{id}});
+    const remover= await this.reservaRepository.findOne({where:{id},relations: ['cliente', 'paquete'],});
     if (!remover) {
       throw new Error ("Cliente no encontrado")
     }

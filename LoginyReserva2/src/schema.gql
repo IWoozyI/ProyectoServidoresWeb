@@ -2,21 +2,27 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Cliente {
-  id: ID!
-  nombre: String!
-  email: String!
-}
-
 type Paquete {
   id: ID!
   descripcion: String!
   precio: String!
+  reservas: [Reserva!]!
 }
 
 type Reserva {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: ID!
+  fechareserva: String!
+  ID_Cliente: String!
+  cliente: Cliente!
+  ID_Paquete: String!
+  paquete: Paquete!
+}
+
+type Cliente {
+  id: ID!
+  nombre: String!
+  email: String!
+  reservas: [Reserva!]!
 }
 
 type Rol {
@@ -34,7 +40,8 @@ type Query {
   cliente(id: String!): Cliente!
   paquetes: [Paquete!]!
   paquete(id: String!): Paquete!
-  reserva(id: Int!): Reserva!
+  reservas: [Reserva!]!
+  reserva(id: String!): Reserva!
   rol(id: Int!): Rol!
   usuario(id: Int!): Usuario!
 }
@@ -48,7 +55,7 @@ type Mutation {
   removePaquete(id: String!): Paquete!
   createReserva(createReservaInput: CreateReservaInput!): Reserva!
   updateReserva(updateReservaInput: UpdateReservaInput!): Reserva!
-  removeReserva(id: Int!): Reserva!
+  removeReserva(id: String!): Reserva!
   createRol(createRolInput: CreateRolInput!): Rol!
   updateRol(updateRolInput: UpdateRolInput!): Rol!
   removeRol(id: Int!): Rol!
@@ -80,14 +87,16 @@ input UpdatePaqueteInput {
 }
 
 input CreateReservaInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  fechareserva: String!
+  ID_Cliente: String!
+  ID_Paquete: String!
 }
 
 input UpdateReservaInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  fechareserva: String
+  ID_Cliente: String
+  ID_Paquete: String
+  id: ID!
 }
 
 input CreateRolInput {

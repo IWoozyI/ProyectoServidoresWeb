@@ -9,7 +9,7 @@ import { ReservaGateway } from './reserva.gateway';
 export class ReservaResolver {
   constructor(
     private readonly reservaService: ReservaService,
-    private readonly reservaGateway: ReservaGateway
+    // private readonly reservaGateway: ReservaGateway
   ) {}
 
   @Mutation(() => Reserva)
@@ -17,7 +17,7 @@ export class ReservaResolver {
     return this.reservaService.create(createReservaInput);
   }
 
-  @Query(() => [Reserva], { name: 'reserva' })
+  @Query(() => [Reserva], { name: 'reservas' })
   findAll(): Promise<Reserva[]> {
     return this.reservaService.findAll();
   }
