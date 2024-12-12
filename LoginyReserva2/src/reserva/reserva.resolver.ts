@@ -1,39 +1,50 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Subscription } from '@nestjs/graphql';
 import { ReservaService } from './reserva.service';
 import { Reserva } from './entities/reserva.entity';
 import { CreateReservaInput } from './dto/create-reserva.input';
 import { UpdateReservaInput } from './dto/update-reserva.input';
 import { ReservaGateway } from './reserva.gateway';
+import { pubSub } from '../pubsub';
 
 @Resolver(() => Reserva)
 export class ReservaResolver {
   constructor(
     private readonly reservaService: ReservaService,
-    // private readonly reservaGateway: ReservaGateway
+    private readonly reservaGateway: ReservaGateway,
   ) {}
 
   @Mutation(() => Reserva)
-  createReserva(@Args('createReservaInput') createReservaInput: CreateReservaInput): Promise<Reserva> {
-    return this.reservaService.create(createReservaInput);
+  async createReserva(@Args('createReservaInput') input: CreateReservaInput): Promise<Reserva> {
+    const nuevaReserva = this.reservaService.create(input);
+
+    pubSub.publish('reservaCreada', { reservaCreada: nuevaReserva });
+    this.reservaGateway.emitReservaActualizada('nuevaReserva', nuevaReserva);
+
+    return nuevaReserva;
   }
 
   @Query(() => [Reserva], { name: 'reservas' })
-  findAll(): Promise<Reserva[]> {
+  async findAll(): Promise<Reserva[]> {
     return this.reservaService.findAll();
   }
 
-  @Query(() => Reserva, { name: 'reserva' })
-  findOne(@Args('id', { type: () => String }) id: string): Promise<Reserva> {
-    return this.reservaService.findOne(id);
+  @Mutation(() => Reserva)
+  async updateReserva(@Args('updateReservaInput') input: UpdateReservaInput): Promise<Reserva> {
+    const reserva = this.reservaService.update(input.id, input);
+
+    pubSub.publish('reservaActualizada', { reservaActualizada: reserva });
+    this.reservaGateway.emitReservaActualizada('actualizarReserva', reserva);
+
+    return reserva;
   }
 
-  @Mutation(() => Reserva)
-  updateReserva(@Args('updateReservaInput') updateReservaInput: UpdateReservaInput): Promise<Reserva> {
-    return this.reservaService.update(updateReservaInput.id, updateReservaInput);
+  @Subscription(() => Reserva, { name: 'reservaCreada' })
+  reservaCreada() {
+    return pubSub.asyncIterator('reservaCreada');
   }
 
-  @Mutation(() => Reserva)
-  removeReserva(@Args('id', { type: () => String }) id: string): Promise<Reserva> {
-    return this.reservaService.remove(id);
+  @Subscription(() => Reserva, { name: 'reservaActualizada' })
+  reservaActualizada() {
+    return pubSub.asyncIterator('reservaActualizada');
   }
 }

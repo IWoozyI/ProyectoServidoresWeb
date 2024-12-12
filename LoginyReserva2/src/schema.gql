@@ -41,7 +41,6 @@ type Query {
   paquetes: [Paquete!]!
   paquete(id: String!): Paquete!
   reservas: [Reserva!]!
-  reserva(id: String!): Reserva!
   rol(id: Int!): Rol!
   usuario(id: Int!): Usuario!
 }
@@ -55,7 +54,6 @@ type Mutation {
   removePaquete(id: String!): Paquete!
   createReserva(createReservaInput: CreateReservaInput!): Reserva!
   updateReserva(updateReservaInput: UpdateReservaInput!): Reserva!
-  removeReserva(id: String!): Reserva!
   createRol(createRolInput: CreateRolInput!): Rol!
   updateRol(updateRolInput: UpdateRolInput!): Rol!
   removeRol(id: Int!): Rol!
@@ -119,4 +117,9 @@ input UpdateUsuarioInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+type Subscription {
+  reservaCreada: Reserva!
+  reservaActualizada: Reserva!
 }

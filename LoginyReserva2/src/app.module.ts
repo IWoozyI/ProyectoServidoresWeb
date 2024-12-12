@@ -29,6 +29,9 @@ import { join } from 'path';
       driver: ApolloDriver,
       playground: false,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      subscriptions:{
+        'graphql-ws':true
+      },
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     ClienteModule, PaqueteModule, ReservaModule, RolModule, UsuarioModule],
